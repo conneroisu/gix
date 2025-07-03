@@ -32,6 +32,15 @@
           exec = ''$EDITOR "$REPO_ROOT"/go.mod'';
           description = "Edit go.mod";
         };
+        lint = {
+          exec = ''
+            golangci-lint run --fix
+          '';
+          deps = [
+            pkgs.golangci-lint
+          ];
+          description = "Lint";
+        };
       };
 
       scriptPackages =
@@ -109,6 +118,9 @@
         projectRootFile = "flake.nix";
         programs = {
           alejandra.enable = true; # Nix formatter
+          goimports.enable = true; # Go formatter
+          gofmt.enable = true; # Go formatter
+          golines.enable = true; # Go formatter
         };
       };
     in
